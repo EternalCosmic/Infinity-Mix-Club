@@ -1,0 +1,1228 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MIX CLUB // 10-Minute Global Sound Expressions</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        neon: {
+                            cyan: '#00f3ff',
+                            purple: '#9d00ff',
+                            magenta: '#ff007f',
+                            yellow: '#ffe600',
+                            dark: '#080811',
+                            card: 'rgba(18, 18, 32, 0.75)'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace']
+                    },
+                    animation: {
+                        'pulse-glow': 'pulseGlow 2s infinite',
+                        'radar-sweep': 'radarSweep 4s linear infinite',
+                        'equalizer': 'equalizer 1s ease-in-out infinite alternate'
+                    },
+                    keyframes: {
+                        pulseGlow: {
+                            '0%, 100%': { boxShadow: '0 0 15px rgba(0, 243, 255, 0.4), inset 0 0 15px rgba(0, 243, 255, 0.2)' },
+                            '50%': { boxShadow: '0 0 30px rgba(255, 0, 127, 0.6), inset 0 0 20px rgba(255, 0, 127, 0.4)' }
+                        },
+                        radarSweep: {
+                            '0%': { transform: 'rotate(0deg)' },
+                            '100%': { transform: 'rotate(360deg)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #05050B;
+            color: #E2E8F0;
+            overflow-x: hidden;
+        }
+        .glass-panel {
+            background: rgba(15, 15, 28, 0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .glass-glow {
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+        .text-glow-cyan {
+            text-shadow: 0 0 10px rgba(0, 243, 255, 0.6);
+        }
+        .text-glow-magenta {
+            text-shadow: 0 0 10px rgba(255, 0, 127, 0.6);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 5px;
+            height: 5px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: rgba(10, 10, 20, 0.5);
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(157, 0, 255, 0.4);
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: rgba(0, 243, 255, 0.6);
+        }
+    </style>
+</head>
+<body class="font-sans antialiased min-h-screen flex flex-col selection:bg-neon-cyan selection:text-black">
+
+    <!-- TOP NAVIGATION BAR -->
+    <header class="sticky top-0 z-40 glass-panel border-b border-white/10 px-4 lg:px-8 py-3">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <!-- Brand Logo -->
+            <div class="flex items-center gap-3 cursor-pointer" onclick="switchView('feed')">
+                <div class="relative flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-tr from-neon-purple to-neon-cyan p-0.5 shadow-lg shadow-neon-cyan/20">
+                    <div class="w-full h-full bg-black/80 rounded-[10px] flex items-center justify-center">
+                        <i class="fa-solid font-bold fa-record-vinyl text-neon-cyan text-xl animate-spin" style="animation-duration: 8s;"></i>
+                    </div>
+                </div>
+                <div>
+                    <span class="font-extrabold text-xl tracking-wider text-white font-mono flex items-center gap-1.5">
+                        MIX<span class="text-transparent bg-clip-text bg-gradient-to-r from-neon-cyan via-neon-purple to-neon-magenta">CLUB</span>
+                        <span class="text-[10px] bg-neon-purple/30 text-neon-cyan border border-neon-cyan/30 px-1.5 py-0.5 rounded font-mono font-bold tracking-normal">10M GLOBAL</span>
+                    </span>
+                    <p class="text-[10px] text-gray-400 font-mono tracking-widest hidden sm:block">EXPRESS YOUR SOUND WORLDWIDE</p>
+                </div>
+            </div>
+
+            <!-- Global Live Counter & Quick Nav -->
+            <div class="hidden md:flex items-center gap-6 text-sm font-mono">
+                <div class="flex items-center gap-2 bg-black/40 px-3 py-1.5 rounded-full border border-white/10">
+                    <span class="relative flex h-2.5 w-2.5">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-neon-cyan opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-neon-cyan"></span>
+                    </span>
+                    <span class="text-gray-300 text-xs"><strong class="text-neon-cyan" id="liveCountText">142</strong> MIXES DROPPING NOW</span>
+                </div>
+
+                <nav class="flex items-center gap-1 bg-white/5 p-1 rounded-xl border border-white/10">
+                    <button onclick="switchView('map')" id="nav-map" class="px-3 py-1.5 rounded-lg font-medium transition text-gray-400 hover:text-white flex items-center gap-2">
+                        <i class="fa-solid fa-earth-americas text-xs"></i> Global Map
+                    </button>
+                    <button onclick="switchView('feed')" id="nav-feed" class="px-3 py-1.5 rounded-lg font-medium transition text-white bg-gradient-to-r from-neon-purple/60 to-neon-cyan/60 flex items-center gap-2">
+                        <i class="fa-solid fa-compact-disc text-xs"></i> Mix Stream
+                    </button>
+                </nav>
+            </div>
+
+            <!-- User Auth / Profile Actions -->
+            <div class="flex items-center gap-3">
+                <button onclick="openDropModal()" class="px-4 py-2 rounded-xl font-semibold text-sm bg-gradient-to-r from-neon-magenta to-neon-purple text-white shadow-lg shadow-neon-magenta/25 hover:shadow-neon-magenta/40 hover:scale-[1.02] transition active:scale-95 flex items-center gap-2">
+                    <i class="fa-solid fa-plus-circle text-base"></i>
+                    <span class="hidden sm:inline">Drop 10-Min Mix</span>
+                    <span class="sm:hidden">Drop</span>
+                </button>
+
+                <div id="authContainer">
+                    <!-- Dynamic rendering based on login status -->
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN BODY CONTAINER -->
+    <main class="flex-1 max-w-7xl w-full mx-auto p-4 lg:p-6 grid grid-cols-1 lg:grid-cols-12 gap-6 relative">
+
+        <!-- LEFT/MAIN CONTENT AREA (Feed / Map View) -->
+        <section class="lg:col-span-8 flex flex-col gap-6">
+
+            <!-- STATS & VIEW SWITCHER (MOBILE & TABLET BAR) -->
+            <div class="flex md:hidden justify-between items-center bg-black/40 p-2 rounded-xl border border-white/10 text-xs font-mono">
+                <div class="flex items-center gap-2">
+                    <span class="h-2 w-2 rounded-full bg-neon-cyan animate-pulse"></span>
+                    <span class="text-gray-300"><span id="liveCountMobile">142</span> Active Drops</span>
+                </div>
+                <div class="flex gap-1">
+                    <button onclick="switchView('map')" id="m-nav-map" class="px-3 py-1 rounded-lg bg-white/5 text-gray-400">Map</button>
+                    <button onclick="switchView('feed')" id="m-nav-feed" class="px-3 py-1 rounded-lg bg-neon-purple text-white">Stream</button>
+                </div>
+            </div>
+
+            <!-- GLOBAL LIVE CANVAS MAP CONTAINER -->
+            <div id="mapViewSection" class="hidden relative rounded-2xl overflow-hidden glass-panel border border-neon-cyan/30 h-[480px] flex flex-col">
+                <div class="absolute top-4 left-4 z-10 flex items-center gap-2 bg-black/70 backdrop-blur-md px-3 py-1.5 rounded-xl border border-white/10 text-xs font-mono">
+                    <i class="fa-solid fa-satellite text-neon-cyan animate-pulse"></i>
+                    <span>GLOBAL ROTATION RADAR</span>
+                </div>
+                <!-- Interactive Controls -->
+                <div class="absolute top-4 right-4 z-10 flex gap-2">
+                    <select id="mapGenreFilter" onchange="filterMapDrops()" class="bg-black/80 text-xs font-mono text-neon-cyan border border-neon-cyan/40 px-3 py-1.5 rounded-xl outline-none cursor-pointer">
+                        <option value="all">All Genres</option>
+                        <option value="Ambient">Ambient / Drone</option>
+                        <option value="Cyberpunk">Cyberpunk / Industrial</option>
+                        <option value="Deep House">Deep House</option>
+                        <option value="Techno">Peak Time Techno</option>
+                        <option value="Lo-Fi">Lo-Fi Viewpoint</option>
+                    </select>
+                </div>
+
+                <!-- Canvas Map -->
+                <canvas id="globalMapCanvas" class="w-full h-full cursor-crosshair bg-[#080816]"></canvas>
+
+                <!-- Map Overlay Tooltip -->
+                <div id="mapTooltip" class="hidden absolute z-20 pointer-events-none glass-panel p-3 rounded-xl border border-neon-cyan/50 max-w-xs shadow-2xl">
+                    <div class="flex items-center gap-2 mb-1">
+                        <span id="tooltipFlag" class="text-base"></span>
+                        <h4 id="tooltipTitle" class="font-bold text-sm text-white truncate"></h4>
+                    </div>
+                    <p id="tooltipArtist" class="text-xs text-neon-cyan font-mono mb-1"></p>
+                    <p id="tooltipLocation" class="text-[11px] text-gray-400 font-mono mb-2"></p>
+                    <span class="inline-block text-[10px] bg-neon-purple/40 text-neon-magenta px-2 py-0.5 rounded font-mono" id="tooltipGenre"></span>
+                </div>
+            </div>
+
+            <!-- STREAM / FEED FILTER BAR -->
+            <div id="feedFilterBar" class="flex flex-wrap items-center justify-between gap-3 bg-black/40 p-3 rounded-2xl border border-white/10">
+                <div class="flex items-center gap-2 overflow-x-auto custom-scrollbar pb-1 sm:pb-0 w-full sm:w-auto">
+                    <button onclick="setFilter('all')" class="filter-btn active-filter px-3.5 py-1.5 rounded-xl text-xs font-mono transition bg-neon-cyan text-black font-bold">ALL DROPS</button>
+                    <button onclick="setFilter('trending')" class="filter-btn px-3.5 py-1.5 rounded-xl text-xs font-mono transition text-gray-400 hover:text-white bg-white/5">🔥 TRENDING</button>
+                    <button onclick="setFilter('fresh')" class="filter-btn px-3.5 py-1.5 rounded-xl text-xs font-mono transition text-gray-400 hover:text-white bg-white/5">⚡ NEWEST (10M)</button>
+                    <button onclick="setFilter('viewpoint')" class="filter-btn px-3.5 py-1.5 rounded-xl text-xs font-mono transition text-gray-400 hover:text-white bg-white/5">🗣️ VIEWPOINT HEAVY</button>
+                </div>
+
+                <div class="flex items-center gap-2 w-full sm:w-auto">
+                    <div class="relative w-full sm:w-48">
+                        <i class="fa-solid fa-magnifying-glass absolute left-3 top-2.5 text-xs text-gray-400"></i>
+                        <input type="text" id="searchInput" onkeyup="handleSearch()" placeholder="Search city, artist, tag..." class="w-full bg-white/5 border border-white/10 rounded-xl pl-8 pr-3 py-1.5 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-neon-cyan transition">
+                    </div>
+                </div>
+            </div>
+
+            <!-- MIXES FEED LIST -->
+            <div id="mixesFeedContainer" class="flex flex-col gap-4">
+                <!-- Dynamically Populated Mix Cards -->
+            </div>
+        </section>
+
+        <!-- RIGHT SIDEBAR: CURRENT PLAYER & COMMUNITY HUB -->
+        <aside class="lg:col-span-4 flex flex-col gap-6">
+            
+            <!-- FEATURED / CURRENT PLAYING MIX PLAYER CARD -->
+            <div class="glass-panel glass-glow rounded-3xl p-5 border border-neon-purple/40 relative overflow-hidden flex flex-col gap-4">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-neon-purple/20 rounded-full blur-3xl pointer-events-none"></div>
+
+                <div class="flex items-center justify-between text-xs font-mono text-gray-400">
+                    <span class="flex items-center gap-2 text-neon-cyan font-bold tracking-wider">
+                        <i class="fa-solid fa-tower-broadcast animate-pulse text-neon-magenta"></i> NOW BROADCASTING
+                    </span>
+                    <span id="playerCountdown" class="bg-black/60 px-2.5 py-1 rounded-lg border border-neon-cyan/30 text-neon-cyan">09:58 / 10:00</span>
+                </div>
+
+                <!-- Artwork & Spectrum Cover -->
+                <div class="relative w-full aspect-video rounded-2xl overflow-hidden group bg-black/80 border border-white/10 shadow-inner">
+                    <img id="playerCoverImg" src="https://images.unsplash.com/photo-1571266028243-e4733b0f0bb1?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover transition duration-700 group-hover:scale-105 opacity-80" alt="Mix Cover">
+                    
+                    <!-- Audio Spectrum Overlay -->
+                    <canvas id="visualizerCanvas" class="absolute inset-0 w-full h-full pointer-events-none"></canvas>
+
+                    <!-- Play Floating Overlay Button -->
+                    <button id="floatingPlayBtn" onclick="togglePlayCurrent()" class="absolute inset-0 m-auto w-14 h-14 rounded-full bg-gradient-to-tr from-neon-magenta to-neon-cyan flex items-center justify-center text-white shadow-xl shadow-neon-cyan/30 transform hover:scale-110 transition active:scale-95">
+                        <i id="floatingPlayIcon" class="fa-solid fa-play text-xl ml-1"></i>
+                    </button>
+                </div>
+
+                <!-- Track & Creator Info -->
+                <div class="flex flex-col gap-1">
+                    <div class="flex items-center justify-between gap-2">
+                        <h3 id="playerMixTitle" class="font-extrabold text-lg text-white truncate hover:text-neon-cyan transition cursor-pointer">Tokyo Cyber Metropolis Reflection</h3>
+                        <span id="playerGenreTag" class="text-[10px] font-mono font-semibold px-2 py-0.5 rounded-full bg-neon-purple/30 text-neon-cyan border border-neon-purple/50">CYBERPUNK</span>
+                    </div>
+
+                    <div class="flex items-center justify-between text-xs font-mono text-gray-300">
+                        <span id="playerArtistName" class="text-neon-cyan flex items-center gap-1.5">
+                            <i class="fa-solid fa-user-ninja"></i> DJ KAE-01
+                        </span>
+                        <span id="playerLocation" class="text-gray-400 flex items-center gap-1">
+                            <i class="fa-solid fa-location-dot text-neon-magenta"></i> Tokyo, Japan 🇯🇵
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Concept Statement / Viewpoint snippet -->
+                <div class="bg-black/40 p-3 rounded-xl border border-white/5 text-xs text-gray-300 italic">
+                    "<span id="playerViewpoint">Exploring the soundscape of nighttime train journeys and neon rain in Shibuya. 10 minutes of pure urban introspection.</span>"
+                </div>
+
+                <!-- Scrubber Progress Bar -->
+                <div class="flex flex-col gap-1">
+                    <div class="w-full h-2 bg-white/10 rounded-full overflow-hidden cursor-pointer relative" id="progressBarContainer" onclick="seekAudio(event)">
+                        <div id="progressBar" class="h-full bg-gradient-to-r from-neon-purple via-neon-magenta to-neon-cyan w-0 rounded-full relative"></div>
+                    </div>
+                    <div class="flex justify-between text-[10px] font-mono text-gray-400 mt-0.5">
+                        <span id="currentTimeDisplay">0:00</span>
+                        <span>10:00 LIMIT</span>
+                    </div>
+                </div>
+
+                <!-- Main Player Controls -->
+                <div class="flex items-center justify-between gap-2 pt-1">
+                    <button onclick="toggleMute()" class="w-9 h-9 rounded-xl bg-white/5 hover:bg-white/10 text-gray-300 flex items-center justify-center transition">
+                        <i id="volumeIcon" class="fa-solid fa-volume-high text-sm"></i>
+                    </button>
+
+                    <div class="flex items-center gap-3">
+                        <button onclick="prevMix()" class="w-10 h-10 rounded-xl bg-white/5 hover:bg-white/10 text-white flex items-center justify-center transition">
+                            <i class="fa-solid fa-backward-step"></i>
+                        </button>
+                        <button onclick="togglePlayCurrent()" class="w-12 h-12 rounded-2xl bg-gradient-to-r from-neon-cyan to-neon-purple text-black font-bold flex items-center justify-center shadow-lg shadow-neon-cyan/20 transition hover:scale-105 active:scale-95">
+                            <i id="mainPlayIcon" class="fa-solid fa-play text-lg ml-0.5"></i>
+                        </button>
+                        <button onclick="nextMix()" class="w-10 h-10 rounded-xl bg-white/5 hover:bg-white/10 text-white flex items-center justify-center transition">
+                            <i class="fa-solid fa-forward-step"></i>
+                        </button>
+                    </div>
+
+                    <button onclick="likeCurrentMix()" id="likeBtn" class="w-9 h-9 rounded-xl bg-white/5 hover:bg-neon-magenta/20 text-gray-300 hover:text-neon-magenta flex items-center justify-center transition">
+                        <i class="fa-solid fa-heart text-sm"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- COMMUNITY COMMENT STREAM / CHAT FOR THIS 10-MIN MIX -->
+            <div class="glass-panel rounded-3xl p-5 border border-white/10 flex flex-col gap-3 h-[360px]">
+                <div class="flex items-center justify-between pb-2 border-b border-white/10">
+                    <h3 class="font-bold text-sm text-white flex items-center gap-2">
+                        <i class="fa-solid fa-comments text-neon-cyan"></i> Live Mix Chat & Feedback
+                    </h3>
+                    <span class="text-[10px] font-mono text-gray-400" id="commentCount">18 comments</span>
+                </div>
+
+                <!-- Comments List Container -->
+                <div id="commentsList" class="flex-1 overflow-y-auto custom-scrollbar flex flex-col gap-3 pr-1">
+                    <!-- Dynamic Comments -->
+                </div>
+
+                <!-- Input box -->
+                <form onsubmit="submitComment(event)" class="flex gap-2 pt-2 border-t border-white/10">
+                    <input type="text" id="commentInput" placeholder="Drop your thought on this 10-min mix..." class="flex-1 bg-white/5 border border-white/10 rounded-xl px-3 py-2 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-neon-cyan">
+                    <button type="submit" class="px-3 py-2 rounded-xl bg-neon-cyan text-black font-bold text-xs hover:bg-white transition flex items-center justify-center">
+                        <i class="fa-solid fa-paper-plane"></i>
+                    </button>
+                </form>
+            </div>
+        </aside>
+    </main>
+
+    <!-- FOOTER STREAM BAR -->
+    <footer class="mt-auto border-t border-white/10 glass-panel px-6 py-4">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-gray-400">
+            <div class="flex items-center gap-3">
+                <span class="w-2.5 h-2.5 rounded-full bg-neon-magenta animate-ping"></span>
+                <span>GLOBAL ROTATION: NEXT BATCH DROP IN <strong class="text-neon-cyan" id="rotationTimer">04:12</strong></span>
+            </div>
+            <div>
+                MIX CLUB PROTOCOL &copy; 2026 // 10-MINUTE AUDIO VIEWPOINTS WORLDWIDE
+            </div>
+        </div>
+    </footer>
+
+    <!-- MODAL: DROP 10-MIN MIX SUBMISSION STUDIO -->
+    <div id="dropModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md hidden p-4">
+        <div class="glass-panel border border-neon-cyan/40 rounded-3xl w-full max-w-2xl max-h-[90vh] overflow-y-auto custom-scrollbar p-6 shadow-2xl relative">
+            <button onclick="closeDropModal()" class="absolute top-5 right-5 text-gray-400 hover:text-white text-lg">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="flex items-center gap-3 mb-6">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-neon-magenta to-neon-cyan flex items-center justify-center text-white text-xl">
+                    <i class="fa-solid fa-cloud-arrow-up"></i>
+                </div>
+                <div>
+                    <h2 class="text-xl font-bold text-white">Broadcast Your 10-Minute Mix</h2>
+                    <p class="text-xs text-gray-400 font-mono">Express your unique musical perspective to the global rotation.</p>
+                </div>
+            </div>
+
+            <form onsubmit="handleMixSubmission(event)" class="flex flex-col gap-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-mono text-neon-cyan mb-1">Mix Title *</label>
+                        <input type="text" id="subTitle" required placeholder="e.g. Neon Horizon Skyline" class="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-sm text-white focus:outline-none focus:border-neon-cyan">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-mono text-neon-cyan mb-1">Genre / Vibe *</label>
+                        <select id="subGenre" required class="w-full bg-black/80 border border-white/10 rounded-xl px-3 py-2.5 text-sm text-white focus:outline-none focus:border-neon-cyan">
+                            <option value="Cyberpunk">Cyberpunk / synthwave</option>
+                            <option value="Deep House">Deep House / Melodic</option>
+                            <option value="Ambient">Ambient / Soundscape</option>
+                            <option value="Techno">Peak Time Techno</option>
+                            <option value="Lo-Fi">Lo-Fi / Hip-Hop Viewpoint</option>
+                            <option value="Afro Tech">Afro Tech / Grooves</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-mono text-neon-cyan mb-1">Location City & Country *</label>
+                        <input type="text" id="subLocation" required placeholder="e.g. Berlin, Germany 🇩🇪" class="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-sm text-white focus:outline-none focus:border-neon-cyan">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-mono text-neon-cyan mb-1">Audio Audio Synth Mood</label>
+                        <select id="subSynthSound" class="w-full bg-black/80 border border-white/10 rounded-xl px-3 py-2.5 text-sm text-white focus:outline-none focus:border-neon-cyan">
+                            <option value="cyber">Cyberpunk Energetic Arp (Synthetic)</option>
+                            <option value="deep">Deep House Chill Pad (Synthetic)</option>
+                            <option value="ambient">Ambient Celestial Drone (Synthetic)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-mono text-neon-cyan mb-1">Statement / Musical Viewpoint Description *</label>
+                    <textarea id="subViewpoint" rows="3" required placeholder="What is the story or philosophical statement behind these 10 minutes?" class="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2 text-sm text-white focus:outline-none focus:border-neon-cyan"></textarea>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-mono text-neon-cyan mb-1">Cover Artwork</label>
+                    <div class="flex items-center gap-3">
+                        <select id="subCoverPreset" onchange="previewCoverPreset()" class="flex-1 bg-black/80 border border-white/10 rounded-xl px-3 py-2 text-sm text-white focus:outline-none">
+                            <option value="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=600&q=80">Neon Concert Stage</option>
+                            <option value="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=600&q=80">Studio Synthesizers</option>
+                            <option value="https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?auto=format&fit=crop&w=600&q=80">Cyber Neon City</option>
+                            <option value="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=600&q=80">DJ Turntable Deck</option>
+                        </select>
+                        <img id="subCoverPreview" src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=600&q=80" class="w-12 h-12 rounded-xl object-cover border border-white/20">
+                    </div>
+                </div>
+
+                <div class="bg-neon-purple/10 border border-neon-purple/30 rounded-xl p-3 text-xs text-gray-300 flex items-center gap-3">
+                    <i class="fa-solid fa-clock text-neon-cyan text-lg"></i>
+                    <span>All submitted drops are automatically normalized to exactly <strong>10 minutes (600 seconds)</strong> for equal global representation.</span>
+                </div>
+
+                <div class="flex justify-end gap-3 mt-2">
+                    <button type="button" onclick="closeDropModal()" class="px-5 py-2.5 rounded-xl border border-white/10 text-xs font-semibold text-gray-400 hover:text-white transition">Cancel</button>
+                    <button type="submit" class="px-6 py-2.5 rounded-xl bg-gradient-to-r from-neon-cyan to-neon-purple text-black font-bold text-xs hover:opacity-90 shadow-lg shadow-neon-cyan/20 transition">Publish 10-Min Drop</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL: LOGIN / USER PROFILE SWITCHER -->
+    <div id="authModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md hidden p-4">
+        <div class="glass-panel border border-neon-purple/40 rounded-3xl w-full max-w-md p-6 shadow-2xl relative">
+            <button onclick="closeAuthModal()" class="absolute top-5 right-5 text-gray-400 hover:text-white text-lg">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <h2 class="text-xl font-bold text-white mb-1">Global DJ Identity</h2>
+            <p class="text-xs text-gray-400 font-mono mb-6">Create or update your global Mix Club persona.</p>
+
+            <form onsubmit="handleLoginSubmit(event)" class="flex flex-col gap-4">
+                <div>
+                    <label class="block text-xs font-mono text-neon-cyan mb-1">DJ Handle / Username *</label>
+                    <input type="text" id="authHandle" required placeholder="e.g. DJ_CYBER_NOVA" class="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-sm text-white focus:outline-none focus:border-neon-cyan">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-mono text-neon-cyan mb-1">Home Base / Location *</label>
+                    <input type="text" id="authLocation" required placeholder="e.g. Seoul, South Korea 🇰🇷" class="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-sm text-white focus:outline-none focus:border-neon-cyan">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-mono text-neon-cyan mb-1">Avatar Preset</label>
+                    <div class="grid grid-cols-4 gap-2">
+                        <button type="button" onclick="selectAvatar('https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80')" class="avatar-option p-1 rounded-xl border border-neon-cyan bg-white/5">
+                            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80" class="w-full aspect-square rounded-lg object-cover">
+                        </button>
+                        <button type="button" onclick="selectAvatar('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80')" class="avatar-option p-1 rounded-xl border border-transparent bg-white/5">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80" class="w-full aspect-square rounded-lg object-cover">
+                        </button>
+                        <button type="button" onclick="selectAvatar('https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=150&q=80')" class="avatar-option p-1 rounded-xl border border-transparent bg-white/5">
+                            <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=150&q=80" class="w-full aspect-square rounded-lg object-cover">
+                        </button>
+                        <button type="button" onclick="selectAvatar('https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=150&q=80')" class="avatar-option p-1 rounded-xl border border-transparent bg-white/5">
+                            <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=150&q=80" class="w-full aspect-square rounded-lg object-cover">
+                        </button>
+                    </div>
+                </div>
+
+                <button type="submit" class="mt-2 w-full py-3 rounded-xl bg-gradient-to-r from-neon-purple to-neon-cyan text-black font-bold text-sm shadow-lg hover:opacity-90 transition">Save Identity</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // --- INITIAL DATA STORE & MOCK DROPS ---
+        const initialMixes = [
+            {
+                id: 'mix-1',
+                title: 'Tokyo Cyber Metropolis Reflection',
+                artist: 'DJ KAE-01',
+                location: 'Tokyo, Japan 🇯🇵',
+                lat: 35.6762,
+                lng: 139.6503,
+                genre: 'Cyberpunk',
+                viewpoint: 'Exploring the soundscape of nighttime train journeys and neon rain in Shibuya. 10 minutes of pure urban introspection.',
+                cover: 'https://images.unsplash.com/photo-1571266028243-e4733b0f0bb1?auto=format&fit=crop&w=600&q=80',
+                likes: 342,
+                views: '1.8k',
+                isLiked: false,
+                comments: [
+                    { user: 'Sora_Sound', text: 'That mid-section synth transition at 04:20 was unreal 🔥', time: '2m ago' },
+                    { user: 'BerlinTechno', text: 'Sending love from Berlin! Heavy atmospheric vibes.', time: '5m ago' }
+                ],
+                synthType: 'cyber'
+            },
+            {
+                id: 'mix-2',
+                title: 'Berghain Underground 10m Express',
+                artist: 'Klaus_Vektor',
+                location: 'Berlin, Germany 🇩🇪',
+                lat: 52.5200,
+                lng: 13.4050,
+                genre: 'Techno',
+                viewpoint: 'Raw 138 BPM analog techno compression representing industrial resilience in dark rooms.',
+                cover: 'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=600&q=80',
+                likes: 890,
+                views: '4.2k',
+                isLiked: true,
+                comments: [
+                    { user: 'RaveGirl99', text: 'Pure energy! Needed this 10 min workout boost.', time: '12m ago' }
+                ],
+                synthType: 'cyber'
+            },
+            {
+                id: 'mix-3',
+                title: 'Sunset Over Table Mountain',
+                artist: 'Amara Groove',
+                location: 'Cape Town, South Africa 🇿🇦',
+                lat: -33.9249,
+                lng: 18.4241,
+                genre: 'Deep House',
+                viewpoint: 'Melodic organic polyrhythms capturing the warmth of the Atlantic horizon at dusk.',
+                cover: 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=600&q=80',
+                likes: 512,
+                views: '2.5k',
+                isLiked: false,
+                comments: [
+                    { user: 'Leo_Bass', text: 'Those vocal chops feel like summer sunrise.', time: '1h ago' }
+                ],
+                synthType: 'deep'
+            },
+            {
+                id: 'mix-4',
+                title: 'Brooklyn Rooftop Synthwave Meditation',
+                artist: 'Nyx Echo',
+                location: 'New York, USA 🇺🇸',
+                lat: 40.7128,
+                lng: -74.0060,
+                genre: 'Ambient',
+                viewpoint: 'Contemplative synth pads recorded on a foggy East River pier. Slow down and breathe.',
+                cover: 'https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?auto=format&fit=crop&w=600&q=80',
+                likes: 275,
+                views: '1.1k',
+                isLiked: false,
+                comments: [
+                    { user: 'ChillSeeker', text: 'Perfect micro-dose of calm.', time: '3h ago' }
+                ],
+                synthType: 'ambient'
+            },
+            {
+                id: 'mix-5',
+                title: 'Ipanema Sunset Micro-Bossa',
+                artist: 'Thiago_Pulse',
+                location: 'Rio de Janeiro, Brazil 🇧🇷',
+                lat: -22.9068,
+                lng: -43.1729,
+                genre: 'Lo-Fi',
+                viewpoint: 'Vinyl crackle mixed with ocean waves and gentle samba chord progressions.',
+                cover: 'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=600&q=80',
+                likes: 620,
+                views: '3.1k',
+                isLiked: false,
+                comments: [],
+                synthType: 'deep'
+            }
+        ];
+
+        // --- GLOBAL APP STATE ---
+        let mixes = [...initialMixes];
+        let currentMixIndex = 0;
+        let isPlaying = false;
+        let currentTime = 0;
+        const MIX_DURATION = 600; // 10 Minutes = 600 seconds
+        let playInterval = null;
+        let activeFilter = 'all';
+        let searchQuery = '';
+
+        let currentUser = {
+            handle: 'DJ_CYBER_GUEST',
+            location: 'London, UK 🇬🇧',
+            avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80',
+            isLoggedIn: true
+        };
+
+        // Web Audio Synth Engine & Visualizer Variables
+        let audioCtx = null;
+        let isMuted = false;
+        let synthOsc = null;
+        let synthGain = null;
+        let synthLfo = null;
+
+        // --- INITIALIZATION ---
+        window.onload = () => {
+            renderAuthUI();
+            renderFeed();
+            loadCurrentMixIntoPlayer();
+            initMapCanvas();
+            initVisualizer();
+            startRotationCountdown();
+        };
+
+        // --- VIEW SWITCHING ---
+        function switchView(view) {
+            const mapView = document.getElementById('mapViewSection');
+            const navMap = document.getElementById('nav-map');
+            const navFeed = document.getElementById('nav-feed');
+            const mNavMap = document.getElementById('m-nav-map');
+            const mNavFeed = document.getElementById('m-nav-feed');
+
+            if (view === 'map') {
+                mapView.classList.remove('hidden');
+                navMap.className = "px-3 py-1.5 rounded-lg font-medium transition text-white bg-gradient-to-r from-neon-purple/60 to-neon-cyan/60 flex items-center gap-2";
+                navFeed.className = "px-3 py-1.5 rounded-lg font-medium transition text-gray-400 hover:text-white flex items-center gap-2";
+                if (mNavMap) mNavMap.className = "px-3 py-1 rounded-lg bg-neon-purple text-white";
+                if (mNavFeed) mNavFeed.className = "px-3 py-1 rounded-lg bg-white/5 text-gray-400";
+            } else {
+                mapView.classList.add('hidden');
+                navFeed.className = "px-3 py-1.5 rounded-lg font-medium transition text-white bg-gradient-to-r from-neon-purple/60 to-neon-cyan/60 flex items-center gap-2";
+                navMap.className = "px-3 py-1.5 rounded-lg font-medium transition text-gray-400 hover:text-white flex items-center gap-2";
+                if (mNavFeed) mNavFeed.className = "px-3 py-1 rounded-lg bg-neon-purple text-white";
+                if (mNavMap) mNavMap.className = "px-3 py-1 rounded-lg bg-white/5 text-gray-400";
+            }
+        }
+
+        // --- AUTHENTICATION & PROFILE ---
+        function renderAuthUI() {
+            const container = document.getElementById('authContainer');
+            if (currentUser.isLoggedIn) {
+                container.innerHTML = `
+                    <div class="flex items-center gap-2 cursor-pointer bg-white/5 hover:bg-white/10 px-3 py-1.5 rounded-xl border border-white/10 transition" onclick="openAuthModal()">
+                        <img src="${currentUser.avatar}" class="w-7 h-7 rounded-full object-cover border border-neon-cyan">
+                        <div class="text-left hidden md:block">
+                            <p class="text-xs font-bold text-white leading-none">${currentUser.handle}</p>
+                            <p class="text-[10px] text-neon-cyan font-mono leading-tight">${currentUser.location}</p>
+                        </div>
+                    </div>
+                `;
+            } else {
+                container.innerHTML = `
+                    <button onclick="openAuthModal()" class="px-4 py-2 rounded-xl text-xs font-mono font-bold bg-white/10 hover:bg-white/20 text-white transition">LOGIN</button>
+                `;
+            }
+        }
+
+        function openAuthModal() {
+            document.getElementById('authHandle').value = currentUser.handle;
+            document.getElementById('authLocation').value = currentUser.location;
+            document.getElementById('authModal').classList.remove('hidden');
+        }
+
+        function closeAuthModal() {
+            document.getElementById('authModal').classList.add('hidden');
+        }
+
+        function selectAvatar(url) {
+            currentUser.avatar = url;
+            document.querySelectorAll('.avatar-option').forEach(el => {
+                el.classList.remove('border-neon-cyan');
+                el.classList.add('border-transparent');
+            });
+            event.currentTarget.classList.remove('border-transparent');
+            event.currentTarget.classList.add('border-neon-cyan');
+        }
+
+        function handleLoginSubmit(e) {
+            e.preventDefault();
+            currentUser.handle = document.getElementById('authHandle').value;
+            currentUser.location = document.getElementById('authLocation').value;
+            currentUser.isLoggedIn = true;
+            renderAuthUI();
+            closeAuthModal();
+        }
+
+        // --- FEED & MIX CARDS ---
+        function setFilter(filter) {
+            activeFilter = filter;
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.className = "filter-btn px-3.5 py-1.5 rounded-xl text-xs font-mono transition text-gray-400 hover:text-white bg-white/5";
+            });
+            event.currentTarget.className = "filter-btn active-filter px-3.5 py-1.5 rounded-xl text-xs font-mono transition bg-neon-cyan text-black font-bold";
+            renderFeed();
+        }
+
+        function handleSearch() {
+            searchQuery = document.getElementById('searchInput').value.toLowerCase();
+            renderFeed();
+        }
+
+        function renderFeed() {
+            const container = document.getElementById('mixesFeedContainer');
+            container.innerHTML = '';
+
+            let filtered = mixes.filter(m => {
+                const matchesSearch = m.title.toLowerCase().includes(searchQuery) ||
+                                      m.artist.toLowerCase().includes(searchQuery) ||
+                                      m.location.toLowerCase().includes(searchQuery) ||
+                                      m.genre.toLowerCase().includes(searchQuery);
+
+                if (!matchesSearch) return false;
+
+                if (activeFilter === 'trending') return parseInt(m.views) > 2.0;
+                if (activeFilter === 'fresh') return true;
+                if (activeFilter === 'viewpoint') return m.viewpoint.length > 50;
+                return true;
+            });
+
+            if (filtered.length === 0) {
+                container.innerHTML = `
+                    <div class="glass-panel p-8 rounded-2xl text-center text-gray-400">
+                        <i class="fa-solid fa-compact-disc text-3xl text-neon-purple mb-2"></i>
+                        <p class="text-sm font-mono">No 10-minute mixes found for your search query.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            filtered.forEach((mix) => {
+                const originalIndex = mixes.findIndex(item => item.id === mix.id);
+                const isCurrent = originalIndex === currentMixIndex;
+
+                const card = document.createElement('div');
+                card.className = `glass-panel rounded-2xl p-4 border transition duration-300 hover:border-neon-cyan/50 flex flex-col md:flex-row gap-4 items-center ${isCurrent ? 'border-neon-cyan bg-neon-purple/10' : 'border-white/10'}`;
+
+                card.innerHTML = `
+                    <div class="relative w-full md:w-36 aspect-video md:aspect-square rounded-xl overflow-hidden group flex-shrink-0">
+                        <img src="${mix.cover}" class="w-full h-full object-cover group-hover:scale-105 transition">
+                        <button onclick="playMixIndex(${originalIndex})" class="absolute inset-0 m-auto w-10 h-10 rounded-full bg-neon-cyan text-black flex items-center justify-center shadow-lg transform scale-90 group-hover:scale-100 transition">
+                            <i class="fa-solid ${isCurrent && isPlaying ? 'fa-pause' : 'fa-play'} text-sm ml-0.5"></i>
+                        </button>
+                    </div>
+
+                    <div class="flex-1 flex flex-col gap-1.5 w-full">
+                        <div class="flex items-center justify-between gap-2">
+                            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-neon-cyan border border-white/10">${mix.genre}</span>
+                            <span class="text-xs font-mono text-gray-400 flex items-center gap-1">
+                                <i class="fa-solid fa-clock text-neon-magenta"></i> 10:00 EXACT
+                            </span>
+                        </div>
+
+                        <h3 class="font-bold text-base text-white hover:text-neon-cyan transition cursor-pointer" onclick="playMixIndex(${originalIndex})">${mix.title}</h3>
+
+                        <div class="flex items-center gap-3 text-xs font-mono text-gray-300">
+                            <span class="text-neon-cyan font-medium">${mix.artist}</span>
+                            <span class="text-gray-500">•</span>
+                            <span class="text-gray-400">${mix.location}</span>
+                        </div>
+
+                        <p class="text-xs text-gray-400 line-clamp-1 italic">"${mix.viewpoint}"</p>
+
+                        <div class="flex items-center justify-between pt-2 border-t border-white/5 text-xs font-mono text-gray-400 mt-1">
+                            <div class="flex items-center gap-4">
+                                <button onclick="toggleLikeFeed('${mix.id}')" class="flex items-center gap-1 hover:text-neon-magenta transition ${mix.isLiked ? 'text-neon-magenta font-bold' : ''}">
+                                    <i class="fa-solid fa-heart"></i> ${mix.likes}
+                                </button>
+                                <span class="flex items-center gap-1">
+                                    <i class="fa-solid fa-eye"></i> ${mix.views}
+                                </span>
+                                <span class="flex items-center gap-1">
+                                    <i class="fa-solid fa-message"></i> ${mix.comments.length}
+                                </span>
+                            </div>
+
+                            <button onclick="shareMix('${mix.title}')" class="hover:text-neon-cyan transition">
+                                <i class="fa-solid fa-share-nodes"></i> Share
+                            </button>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // --- WEB AUDIO SYNTH & PLAYER LOGIC ---
+        function initAudioEngine() {
+            if (!audioCtx) {
+                const AudioContext = window.AudioContext || window.webkitAudioContext;
+                audioCtx = new AudioContext();
+            }
+        }
+
+        function playSynthTone(type) {
+            initAudioEngine();
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+
+            stopSynthTone();
+
+            synthOsc = audioCtx.createOscillator();
+            synthGain = audioCtx.createGain();
+            synthLfo = audioCtx.createOscillator();
+
+            const lfoGain = audioCtx.createGain();
+
+            if (type === 'cyber') {
+                synthOsc.type = 'sawtooth';
+                synthOsc.frequency.setValueAtTime(110, audioCtx.currentTime); // A2
+                synthLfo.frequency.setValueAtTime(4, audioCtx.currentTime); // 4Hz modulation
+                lfoGain.gain.setValueAtTime(30, audioCtx.currentTime);
+            } else if (type === 'deep') {
+                synthOsc.type = 'sine';
+                synthOsc.frequency.setValueAtTime(130.81, audioCtx.currentTime); // C3
+                synthLfo.frequency.setValueAtTime(1.5, audioCtx.currentTime);
+                lfoGain.gain.setValueAtTime(10, audioCtx.currentTime);
+            } else {
+                // Ambient
+                synthOsc.type = 'triangle';
+                synthOsc.frequency.setValueAtTime(220, audioCtx.currentTime); // A3
+                synthLfo.frequency.setValueAtTime(0.5, audioCtx.currentTime);
+                lfoGain.gain.setValueAtTime(5, audioCtx.currentTime);
+            }
+
+            synthLfo.connect(lfoGain);
+            lfoGain.connect(synthOsc.frequency);
+
+            synthGain.gain.setValueAtTime(isMuted ? 0 : 0.15, audioCtx.currentTime);
+            synthOsc.connect(synthGain);
+            synthGain.connect(audioCtx.destination);
+
+            synthOsc.start();
+            synthLfo.start();
+        }
+
+        function stopSynthTone() {
+            if (synthOsc) {
+                try {
+                    synthOsc.stop();
+                    synthOsc.disconnect();
+                } catch (e) {}
+            }
+            if (synthLfo) {
+                try {
+                    synthLfo.stop();
+                    synthLfo.disconnect();
+                } catch (e) {}
+            }
+        }
+
+        function loadCurrentMixIntoPlayer() {
+            const mix = mixes[currentMixIndex];
+            document.getElementById('playerMixTitle').innerText = mix.title;
+            document.getElementById('playerArtistName').innerHTML = `<i class="fa-solid fa-user-ninja"></i> ${mix.artist}`;
+            document.getElementById('playerLocation').innerHTML = `<i class="fa-solid fa-location-dot text-neon-magenta"></i> ${mix.location}`;
+            document.getElementById('playerGenreTag').innerText = mix.genre.toUpperCase();
+            document.getElementById('playerViewpoint').innerText = mix.viewpoint;
+            document.getElementById('playerCoverImg').src = mix.cover;
+
+            const likeBtn = document.getElementById('likeBtn');
+            if (mix.isLiked) {
+                likeBtn.className = "w-9 h-9 rounded-xl bg-neon-magenta text-white flex items-center justify-center transition";
+            } else {
+                likeBtn.className = "w-9 h-9 rounded-xl bg-white/5 hover:bg-neon-magenta/20 text-gray-300 hover:text-neon-magenta flex items-center justify-center transition";
+            }
+
+            renderComments();
+            renderFeed();
+        }
+
+        function togglePlayCurrent() {
+            if (isPlaying) {
+                pauseMix();
+            } else {
+                playMix();
+            }
+        }
+
+        function playMixIndex(idx) {
+            currentMixIndex = idx;
+            currentTime = 0;
+            loadCurrentMixIntoPlayer();
+            playMix();
+        }
+
+        function playMix() {
+            isPlaying = true;
+            document.getElementById('mainPlayIcon').className = "fa-solid fa-pause text-lg";
+            document.getElementById('floatingPlayIcon').className = "fa-solid fa-pause text-xl ml-0.5";
+            
+            const currentMix = mixes[currentMixIndex];
+            playSynthTone(currentMix.synthType || 'cyber');
+
+            if (playInterval) clearInterval(playInterval);
+            playInterval = setInterval(() => {
+                currentTime++;
+                if (currentTime >= MIX_DURATION) {
+                    nextMix();
+                }
+                updatePlayerProgress();
+            }, 1000);
+        }
+
+        function pauseMix() {
+            isPlaying = false;
+            document.getElementById('mainPlayIcon').className = "fa-solid fa-play text-lg ml-0.5";
+            document.getElementById('floatingPlayIcon').className = "fa-solid fa-play text-xl ml-1";
+            stopSynthTone();
+            if (playInterval) clearInterval(playInterval);
+            renderFeed();
+        }
+
+        function nextMix() {
+            currentMixIndex = (currentMixIndex + 1) % mixes.length;
+            currentTime = 0;
+            loadCurrentMixIntoPlayer();
+            if (isPlaying) playMix();
+        }
+
+        function prevMix() {
+            currentMixIndex = (currentMixIndex - 1 + mixes.length) % mixes.length;
+            currentTime = 0;
+            loadCurrentMixIntoPlayer();
+            if (isPlaying) playMix();
+        }
+
+        function seekAudio(e) {
+            const container = document.getElementById('progressBarContainer');
+            const rect = container.getBoundingClientRect();
+            const clickPos = (e.clientX - rect.left) / rect.width;
+            currentTime = Math.floor(clickPos * MIX_DURATION);
+            updatePlayerProgress();
+        }
+
+        function updatePlayerProgress() {
+            const pct = (currentTime / MIX_DURATION) * 100;
+            document.getElementById('progressBar').style.width = pct + '%';
+
+            const mins = Math.floor(currentTime / 60);
+            const secs = currentTime % 60;
+            const timeStr = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+            document.getElementById('currentTimeDisplay').innerText = timeStr;
+
+            const remaining = MIX_DURATION - currentTime;
+            const rMins = Math.floor(remaining / 60);
+            const rSecs = remaining % 60;
+            document.getElementById('playerCountdown').innerText = `${rMins.toString().padStart(2, '0')}:${rSecs.toString().padStart(2, '0')} / 10:00`;
+        }
+
+        function toggleMute() {
+            isMuted = !isMuted;
+            const icon = document.getElementById('volumeIcon');
+            if (isMuted) {
+                icon.className = "fa-solid fa-volume-xmark text-sm text-neon-magenta";
+                if (synthGain && audioCtx) synthGain.gain.setValueAtTime(0, audioCtx.currentTime);
+            } else {
+                icon.className = "fa-solid fa-volume-high text-sm";
+                if (synthGain && audioCtx) synthGain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+            }
+        }
+
+        function toggleLikeFeed(id) {
+            const mix = mixes.find(m => m.id === id);
+            if (mix) {
+                mix.isLiked = !mix.isLiked;
+                mix.likes += mix.isLiked ? 1 : -1;
+                renderFeed();
+                if (mixes[currentMixIndex].id === id) {
+                    loadCurrentMixIntoPlayer();
+                }
+            }
+        }
+
+        function likeCurrentMix() {
+            toggleLikeFeed(mixes[currentMixIndex].id);
+        }
+
+        function shareMix(title) {
+            const msg = `Check out this 10-minute global mix "${title}" on Mix Club!`;
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(window.location.href);
+            }
+            alert(`Mix share text copied: "${msg}"`);
+        }
+
+        // --- COMMENTS SYSTEM ---
+        function renderComments() {
+            const list = document.getElementById('commentsList');
+            const currentMix = mixes[currentMixIndex];
+            document.getElementById('commentCount').innerText = `${currentMix.comments.length} comments`;
+
+            list.innerHTML = '';
+            if (currentMix.comments.length === 0) {
+                list.innerHTML = `<p class="text-xs text-gray-500 italic font-mono text-center py-4">Be the first to leave a thought on this 10m viewpoint!</p>`;
+                return;
+            }
+
+            currentMix.comments.forEach(c => {
+                const item = document.createElement('div');
+                item.className = "bg-white/5 p-2.5 rounded-xl border border-white/5 flex flex-col gap-1 text-xs";
+                item.innerHTML = `
+                    <div class="flex justify-between items-center font-mono">
+                        <span class="text-neon-cyan font-semibold">${c.user}</span>
+                        <span class="text-[10px] text-gray-500">${c.time}</span>
+                    </div>
+                    <p class="text-gray-300">${c.text}</p>
+                `;
+                list.appendChild(item);
+            });
+        }
+
+        function submitComment(e) {
+            e.preventDefault();
+            const input = document.getElementById('commentInput');
+            const val = input.value.trim();
+            if (!val) return;
+
+            mixes[currentMixIndex].comments.unshift({
+                user: currentUser.handle,
+                text: val,
+                time: 'Just now'
+            });
+
+            input.value = '';
+            renderComments();
+        }
+
+        // --- SUBMISSION STUDIO MODAL ---
+        function openDropModal() {
+            document.getElementById('dropModal').classList.remove('hidden');
+        }
+
+        function closeDropModal() {
+            document.getElementById('dropModal').classList.add('hidden');
+        }
+
+        function previewCoverPreset() {
+            const val = document.getElementById('subCoverPreset').value;
+            document.getElementById('subCoverPreview').src = val;
+        }
+
+        function handleMixSubmission(e) {
+            e.preventDefault();
+
+            const newMix = {
+                id: 'mix-' + Date.now(),
+                title: document.getElementById('subTitle').value,
+                artist: currentUser.handle,
+                location: document.getElementById('subLocation').value,
+                lat: (Math.random() * 120) - 60,
+                lng: (Math.random() * 360) - 180,
+                genre: document.getElementById('subGenre').value,
+                viewpoint: document.getElementById('subViewpoint').value,
+                cover: document.getElementById('subCoverPreset').value,
+                likes: 1,
+                views: '1',
+                isLiked: false,
+                comments: [],
+                synthType: document.getElementById('subSynthSound').value
+            };
+
+            mixes.unshift(newMix);
+            currentMixIndex = 0;
+            currentTime = 0;
+
+            loadCurrentMixIntoPlayer();
+            renderFeed();
+            closeDropModal();
+            switchView('feed');
+
+            alert('Your 10-Minute Mix Drop is now LIVE in global rotation!');
+        }
+
+        // --- CANVAS AUDIO SPECTRUM VISUALIZER ---
+        function initVisualizer() {
+            const canvas = document.getElementById('visualizerCanvas');
+            const ctx = canvas.getContext('2d');
+
+            function resize() {
+                canvas.width = canvas.parentElement.clientWidth;
+                canvas.height = canvas.parentElement.clientHeight;
+            }
+            resize();
+            window.addEventListener('resize', resize);
+
+            let phase = 0;
+
+            function draw() {
+                requestAnimationFrame(draw);
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                const bars = 32;
+                const barWidth = canvas.width / bars;
+
+                for (let i = 0; i < bars; i++) {
+                    let height = 10;
+                    if (isPlaying) {
+                        height = Math.sin(phase + i * 0.3) * 25 + Math.cos(phase * 1.5 + i * 0.2) * 20 + 35;
+                    }
+
+                    const gradient = ctx.createLinearGradient(0, canvas.height, 0, canvas.height - height);
+                    gradient.addColorStop(0, 'rgba(0, 243, 255, 0.2)');
+                    gradient.addColorStop(1, 'rgba(255, 0, 127, 0.8)');
+
+                    ctx.fillStyle = gradient;
+                    ctx.fillRect(i * barWidth + 2, canvas.height - height, barWidth - 4, height);
+                }
+                phase += 0.08;
+            }
+            draw();
+        }
+
+        // --- GLOBAL RADAR CANVAS MAP ---
+        function initMapCanvas() {
+            const canvas = document.getElementById('globalMapCanvas');
+            const ctx = canvas.getContext('2d');
+            const tooltip = document.getElementById('mapTooltip');
+
+            function resize() {
+                canvas.width = canvas.parentElement.clientWidth;
+                canvas.height = canvas.parentElement.clientHeight;
+            }
+            resize();
+            window.addEventListener('resize', resize);
+
+            let pulseAngle = 0;
+
+            function convertCoords(lat, lng) {
+                const x = (lng + 180) * (canvas.width / 360);
+                const y = (90 - lat) * (canvas.height / 180);
+                return { x, y };
+            }
+
+            function drawMap() {
+                requestAnimationFrame(drawMap);
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                // Draw Grid Lines
+                ctx.strokeStyle = 'rgba(255, 255, 255, 0.05)';
+                ctx.lineWidth = 1;
+
+                for (let x = 0; x < canvas.width; x += 40) {
+                    ctx.beginPath();
+                    ctx.moveTo(x, 0);
+                    ctx.lineTo(x, canvas.height);
+                    ctx.stroke();
+                }
+                for (let y = 0; y < canvas.height; y += 40) {
+                    ctx.beginPath();
+                    ctx.moveTo(0, y);
+                    ctx.lineTo(canvas.width, y);
+                    ctx.stroke();
+                }
+
+                // Render Mix Drops on Map
+                mixes.forEach((mix, i) => {
+                    const { x, y } = convertCoords(mix.lat, mix.lng);
+
+                    // Pulse effect
+                    const pulseRadius = 6 + Math.sin(pulseAngle + i) * 4;
+                    ctx.beginPath();
+                    ctx.arc(x, y, pulseRadius + 6, 0, Math.PI * 2);
+                    ctx.fillStyle = i === currentMixIndex ? 'rgba(0, 243, 255, 0.2)' : 'rgba(255, 0, 127, 0.15)';
+                    ctx.fill();
+
+                    // Pin core
+                    ctx.beginPath();
+                    ctx.arc(x, y, 5, 0, Math.PI * 2);
+                    ctx.fillStyle = i === currentMixIndex ? '#00f3ff' : '#ff007f';
+                    ctx.shadowColor = i === currentMixIndex ? '#00f3ff' : '#ff007f';
+                    ctx.shadowBlur = 10;
+                    ctx.fill();
+                    ctx.shadowBlur = 0;
+                });
+
+                pulseAngle += 0.05;
+            }
+            drawMap();
+
+            // Hover & Click Interactions
+            canvas.addEventListener('mousemove', (e) => {
+                const rect = canvas.getBoundingClientRect();
+                const mouseX = e.clientX - rect.left;
+                const mouseY = e.clientY - rect.top;
+
+                let hovered = false;
+
+                mixes.forEach((mix) => {
+                    const { x, y } = convertCoords(mix.lat, mix.lng);
+                    const dist = Math.hypot(mouseX - x, mouseY - y);
+
+                    if (dist < 12) {
+                        hovered = true;
+                        tooltip.classList.remove('hidden');
+                        tooltip.style.left = (x + 15) + 'px';
+                        tooltip.style.top = (y - 20) + 'px';
+                        document.getElementById('tooltipTitle').innerText = mix.title;
+                        document.getElementById('tooltipArtist').innerText = mix.artist;
+                        document.getElementById('tooltipLocation').innerText = mix.location;
+                        document.getElementById('tooltipGenre').innerText = mix.genre;
+                    }
+                });
+
+                if (!hovered) tooltip.classList.add('hidden');
+            });
+
+            canvas.addEventListener('click', (e) => {
+                const rect = canvas.getBoundingClientRect();
+                const mouseX = e.clientX - rect.left;
+                const mouseY = e.clientY - rect.top;
+
+                mixes.forEach((mix, idx) => {
+                    const { x, y } = convertCoords(mix.lat, mix.lng);
+                    const dist = Math.hypot(mouseX - x, mouseY - y);
+
+                    if (dist < 12) {
+                        playMixIndex(idx);
+                    }
+                });
+            });
+        }
+
+        function filterMapDrops() {
+            const genre = document.getElementById('mapGenreFilter').value;
+            if (genre === 'all') {
+                activeFilter = 'all';
+            } else {
+                searchQuery = genre.toLowerCase();
+            }
+            renderFeed();
+        }
+
+        // --- FOOTER ROTATION COUNTDOWN TIMER ---
+        function startRotationCountdown() {
+            let seconds = 252;
+            setInterval(() => {
+                seconds--;
+                if (seconds <= 0) seconds = 600;
+                const m = Math.floor(seconds / 60);
+                const s = seconds % 60;
+                document.getElementById('rotationTimer').innerText = `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
